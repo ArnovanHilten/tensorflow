@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Tests for locally-connected layers."""
+"""Tests for custom-connected layers."""
 
 from __future__ import absolute_import
 from __future__ import division
@@ -96,10 +96,9 @@ class CustomConnected1DLayersTest(test.TestCase, parameterized.TestCase):
         if padding == 'same' and strides != 1:
           continue
         kwargs = {
+	    'mask': mask,
             'filters': filters,
-            'kernel_size': filter_length,
             'padding': padding,
-            'strides': strides,
             'data_format': data_format,
             'implementation': implementation
         }
@@ -122,8 +121,8 @@ class CustomConnected1DLayersTest(test.TestCase, parameterized.TestCase):
     filter_length = 3
     filters = 4
     kwargs = {
+	'mask': mask,
         'filters': filters,
-        'kernel_size': filter_length,
         'kernel_regularizer': 'l2',
         'bias_regularizer': 'l2',
         'activity_regularizer': 'l2',
